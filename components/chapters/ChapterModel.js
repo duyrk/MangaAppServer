@@ -4,10 +4,10 @@ const ObjectId = Schema.Types.ObjectId;
 
 const schema = new Schema({
     id: {type: ObjectId},
-    name:{
+    title:{
         type: String, trim: true, default:"Unknown"
     },
-    description:{type: String, trim: true, default:""}
-
+    chapter_number:{type: Number},
+    page:{type:Array, default:[]}
 });
-module.exports = mongoose.models.genre || mongoose.model("genre",schema);
+module.exports = mongoose.models.chapter || mongoose.model("chapter",schema);
