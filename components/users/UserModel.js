@@ -5,7 +5,10 @@ const ObjectId = Schema.Types.ObjectId;
 const schema = new Schema({
     id: {type: ObjectId},
     user_name:{
-        type: String, trim: true, default:"Unknown"
+        type: String, trim: true, default:"Unknown", required: true
+    },
+    password:{
+        type: String, required: true
     },
     email:{type: String, trim: true},
     nickname:{type:String, trim:true},
