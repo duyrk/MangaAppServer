@@ -14,7 +14,7 @@ const schema = new Schema({
     nickname:{type:String, trim:true},
     bio:{type:String, trim:true},
     date_of_birth:{type:Number},
-    favourite:{type:Array, default:[]},
+    favourite:[{type: ObjectId, ref:'manga'}],
 
 });
 module.exports = mongoose.models.user || mongoose.model("user",schema);

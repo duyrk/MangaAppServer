@@ -14,8 +14,8 @@ const schema = new Schema({
     views:{type: Number},
     likes:{type:Number},
     uploader:{type:String},
-    characters:{type:Array, default:[]},
-    genres:{type: Array, default:[]},
-    chapters:{type:Array, default:[]}
+    characters:[{type: ObjectId, ref:'character'}],
+    genres:[{type: ObjectId, ref:'genre'}],
+    chapters:[{type: ObjectId, ref:'chapter'}],
 });
 module.exports = mongoose.models.manga || mongoose.model("manga",schema);

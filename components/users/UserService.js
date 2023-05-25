@@ -17,9 +17,10 @@ const login = async (user_name, password) => {
 }
 
 const signUp = async (user_name, password, email, nickname, bio, date_of_birth, favourite) => {
-    const checkUser = userModel.find({ user_name: user_name })
+    try {
+    const checkUser = await userModel.findOne({ user_name: user_name })
     if (!checkUser) {
-        try {
+
             const newUser = {
                 user_name,
                 password,
@@ -31,10 +32,11 @@ const signUp = async (user_name, password, email, nickname, bio, date_of_birth, 
             }
             await userModel.create(newUser);
             return true;
+        }
         } catch (error) {
             console.log('Sign Up Service Error:' + error)
         }
-    }
+   
     return false
 }
 module.exports = { login, signUp }
