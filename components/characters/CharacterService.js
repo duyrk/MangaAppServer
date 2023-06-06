@@ -13,6 +13,20 @@ const addNewCharacter = async (name, description)=>{
     }
     return false;
 }
+const editCharacterById = async (id, name, description)=>{
+    try {
+        let character = characterModel.findById(id);
+        if(character){
+            character.name = name ? name : character.name
+            character.description = description ? description : character.description;
+            await character.save();
+            return true;
+        }
+    } catch (error) {
+        console.log("Edit Character by id error"+error);
+    }
+    return false;
+}
 const deleteCharacterById = async (id)=>{
     try {
         return await characterModel.findByIdAndDelete(id)
@@ -21,4 +35,4 @@ const deleteCharacterById = async (id)=>{
     }
 }
 
-module.exports = {addNewCharacter, deleteCharacterById}
+module.exports = {addNewCharacter, editCharacterById,deleteCharacterById}

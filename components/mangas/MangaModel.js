@@ -17,5 +17,6 @@ const schema = new Schema({
     characters:[{type: ObjectId, ref:'character'}],
     genres:[{type: ObjectId, ref:'genre'}],
     chapters:[{type: ObjectId, ref:'chapter'}],
+    date:{type: String}
 });
 module.exports = mongoose.models.manga || mongoose.model("manga",schema);

@@ -29,6 +29,12 @@ try {
 }
 return false;
 }
-
+const editChapter = async (id, title, chapter_number, page, date)=>{
+    try {
+        let chapter = chapterModel.findById()
+    } catch (error) {
+        
+    }
+}
 
 module.exports = {addChapter}

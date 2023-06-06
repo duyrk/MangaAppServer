@@ -8,6 +8,7 @@ const schema = new Schema({
         type: String, trim: true, default:"Unknown"
     },
     chapter_number:{type: Number},
-    page:{type:Array, default:[]}
+    page:{type:Array, default:[]},
+    date: {type: String}
 });
 module.exports = mongoose.models.chapter || mongoose.model("chapter",schema);
