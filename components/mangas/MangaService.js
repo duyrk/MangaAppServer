@@ -57,4 +57,4 @@ try {
     console.log('Delete manga by id'+error)
 }
 }
-module.exports = {addManga, updateMangaById, deleteMangaById}
+module.exports = {getAllManga ,addManga, updateMangaById, deleteMangaById}
