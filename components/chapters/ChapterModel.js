@@ -9,6 +9,6 @@ const schema = new Schema({
     },
     chapter_number:{type: Number},
     page:{type:Array, default:[]},
-    date: {type: String}
+    date: {type: Number, default: Date.now()}
 });
 module.exports = mongoose.models.chapter || mongoose.model("chapter",schema);

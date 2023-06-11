@@ -28,7 +28,8 @@ const signUp = async (user_name, password, email, nickname, bio, date_of_birth, 
                 nickname,
                 bio,
                 date_of_birth,
-                favourite
+                favourite,
+                role
             }
             await userModel.create(newUser);
             return true;
@@ -38,5 +39,16 @@ const signUp = async (user_name, password, email, nickname, bio, date_of_birth, 
         }
    
     return false
+}
+const updateUserById = async (id, updates)=>{
+    try {
+        let user = userModel.findById(id)
+        Object.assign(user, updates);
+        await user.save();
+        return user;
+    } catch (error) {
+        console.log('Update user by id error'+error)
+    }
+    return [];
 }
 module.exports = { login, signUp }

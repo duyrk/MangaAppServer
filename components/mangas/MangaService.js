@@ -2,11 +2,27 @@ const mangaModel = require('./MangaModel')
 const characterModel = require('../characters/CharacterModel')
 const chapterModel = require("../chapters/ChapterModel")
 const getAllManga = async (page, size) =>{
-    try {
-        
+    let skip = (page-1) * size
+    try { 
+        return await mangaModel.find()
+                                .populate('character')
+                                .populate('genre')
+                                .populate('chapter')
+                                .skip(skip)
+                                .limit(size)
     } catch (error) {
         console.log('Get all Manga Service Error '+error)
     }
+    return [];
+}
+const getMangaById = async (id)=>{
+    try {
+        const manga = await mangaModel.findById(id);
+        if(manga) return manga;
+    } catch (error) {
+        console.log('Get Manga By Id error'+error)
+    }
+    return null;
 }
 const addManga = async (name, author, status, language, cover, views, likes, uploader, characters, genres, chapters, date)=>{
     try {
@@ -37,11 +53,11 @@ const updateMangaById = async (id, updates)=>{
         let manga = await mangaModel.findById(id);
         Object.assign(manga, updates);
         await manga.save();
-        return true;
+        return manga;
     } catch (error) {
         console.log('Update Manga By Id error'+error)
     }
-    return false;
+    return [];
 }
 const deleteMangaById = async (id)=>{
 try {
@@ -57,4 +73,16 @@ try {
     console.log('Delete manga by id'+error)
 }
 }
-module.exports = {getAllManga ,addManga, updateMangaById, deleteMangaById}
+const searchManga = async (keyword)=>{
+    try {
+        let query = {
+            name: {$regex: keyword, $options: 'i'}
+        }
+        let manga = await mangaModel.find(query);
+        return manga;
+    } catch (error) {
+        console.log('Search Manga Service error '+error)
+    }
+ 
+}
+module.exports = {getAllManga, getMangaById , addManga, updateMangaById, deleteMangaById, searchManga}

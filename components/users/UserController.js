@@ -5,5 +5,7 @@ const login = async (user_name, password) =>{
 const signUp = async (user_name, password, email, nickname, bio, date_of_birth, favourite )=>{
     await userService.signUp(user_name, password, email, nickname, bio, date_of_birth, favourite)
 }
-
-module.exports = {login, signUp}
+const updateUserById = async (id, updates)=>{
+    await userService.updateUserById(id, updates);
+}
+module.exports = {login, signUp, updateUserById}
