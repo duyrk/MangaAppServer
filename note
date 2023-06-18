@@ -1,0 +1,14 @@
+note:
+
+upload lên firebase để lấy link về,
+link là string
+dùng foreach để link ảnh về dạng object
+{
+    "id":"1",
+    "page_image":"link page"
+}
+xong vòng lập gọi api để up lên server
+
+
+khi cập nhật một chapter mới thì  thay đổi luôn ngày cập nhật 
+bên manga model
