@@ -1,17 +1,17 @@
 const characterModel = require("./CharacterModel");
 
-const addNewCharacter = async (name, description) => {
+const addNewCharacter = async (name, description, image) => {
   try {
-    const user = {
+    const character = {
       name,
       description,
+      image,
     };
-    await characterModel.create(user);
-    return true;
+    return await characterModel.create(character);
   } catch (error) {
     console.log("Add new character error" + error);
   }
-  return false;
+  return {};
 };
 const getCharacterId = async (id) => {
   try {
@@ -21,12 +21,13 @@ const getCharacterId = async (id) => {
   }
   return {};
 };
-const editCharacterById = async (id, name, description) => {
+const editCharacterById = async (id, name, description, image) => {
   try {
     let character = characterModel.findById(id);
     if (character) {
       character.name = name ? name : character.name;
       character.description = description ? description : character.description;
+      character.image = image ? image : character.image;
       await character.save();
       return true;
     }

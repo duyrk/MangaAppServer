@@ -11,7 +11,7 @@ const schema = new Schema({
   },
   author: { type: String, trim: true },
   status: { type: String, trim: true },
-  language: { type: String, trim: true },
+  language: { type: String, trim: true, default:"English" },
   cover: { type: String },
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },

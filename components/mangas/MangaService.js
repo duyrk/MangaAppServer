@@ -18,7 +18,11 @@ const getAllManga = async (page, size) => {
 };
 const getMangaById = async (id) => {
   try {
-    const manga = await mangaModel.findById(id);
+    const manga = await mangaModel
+      .findById(id)
+      .populate("character")
+      .populate("genre")
+      .populate("chapter");
     if (manga) return manga;
   } catch (error) {
     console.log("Get Manga By Id error" + error);
@@ -92,11 +96,26 @@ const searchManga = async (keyword) => {
     let query = {
       name: { $regex: keyword, $options: "i" },
     };
-    let manga = await mangaModel.find(query);
+    let manga = await mangaModel
+      .find(query)
+      .populate("character")
+      .populate("genre")
+      .populate("chapter");
     return manga;
   } catch (error) {
     console.log("Search Manga Service error " + error);
   }
+};
+const pushCharacter = async (id, characterId) => {
+  try {
+    const manga = await mangaModel.findById(id);
+    manga.characters.push(characterId);
+    await manga.save();
+    return true;
+  } catch (error) {
+    console.log("Push new character error" + error);
+  }
+  return false;
 };
 module.exports = {
   getAllManga,
@@ -105,4 +124,5 @@ module.exports = {
   updateMangaById,
   deleteMangaById,
   searchManga,
+  pushCharacter,
 };

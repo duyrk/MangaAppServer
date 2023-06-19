@@ -4,13 +4,9 @@ const ObjectId = Schema.Types.ObjectId;
 
 const schema = new Schema({
   id: { type: ObjectId },
-  name: {
+  url: {
     type: String,
     trim: true,
-    default: "Unknown",
   },
-  description: { type: String, trim: true },
-  image: { type: String },
 });
-module.exports =
-  mongoose.models.character || mongoose.model("character", schema);
+module.exports = mongoose.models.page || mongoose.model("page", schema);

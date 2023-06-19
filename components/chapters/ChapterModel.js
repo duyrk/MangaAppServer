@@ -10,7 +10,7 @@ const schema = new Schema({
     default: "Unknown",
   },
   chapter_number: { type: Number },
-  page: { type: Array, default: [] },
+  page: [{ type: ObjectId, ref: "page" }],
   date: { type: Number, default: Date.now() },
 });
 module.exports = mongoose.models.chapter || mongoose.model("chapter", schema);

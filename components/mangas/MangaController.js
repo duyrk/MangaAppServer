@@ -43,6 +43,9 @@ const deleteMangaById = async (id) => {
 const searchManga = async (keyword) => {
   return await mangaService.searchManga(keyword);
 };
+const pushCharacter = async (id, characterId) => {
+  return await mangaService.pushCharacter(id, characterId);
+};
 module.exports = {
   getAllManga,
   getMangaById,
@@ -50,4 +53,5 @@ module.exports = {
   updateMangaById,
   deleteMangaById,
   searchManga,
+  pushCharacter,
 };

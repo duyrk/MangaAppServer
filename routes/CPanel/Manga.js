@@ -110,4 +110,76 @@ router.get(
     }
   }
 );
+router.post(
+  "/:id/edit/characters/:characterId/edit",
+  async function (req, res, next) {
+    try {
+      const { id, characterId } = req.params;
+      const { name, description, image } = req.body;
+      const reponse = await characterController.editCharacterById(
+        characterId,
+        name,
+        description,
+        image
+      );
+      if (reponse) {
+        return res.status(200).json({
+          reponseTimeStamp: new Date(),
+          error: false,
+          statusCode: 200,
+          message: "This character has been edited succesfully!",
+        });
+      } else {
+        return res.status(400).json({
+          reponseTimeStamp: new Date(),
+          error: true,
+          statusCode: 400,
+          message: "This action cannot be done, an error happend!",
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        message: "This action cannot be done, an error happend!",
+      });
+    }
+  }
+);
+router.post("/:id/edit/characters/add", async function (req, res, next) {
+  try {
+    const { id } = req.params;
+    const { name, description, image } = req.body;
+    const data = await characterController.addNewCharacter(
+      name,
+      description,
+      image
+    );
+    const reponse = await mangacontroller.pushCharacter(id, data._id);
+    if (reponse) {
+      return res.status(200).json({
+        reponseTimeStamp: new Date(),
+        error: false,
+        statusCode: 200,
+        message: "This character has been added succesfully!",
+      });
+    } else {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        message: "This action cannot be done, an error happend!",
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      reponseTimeStamp: new Date(),
+      error: true,
+      statusCode: 400,
+      message: "This action cannot be done, an error happend!",
+    });
+  }
+});
+
 module.exports = router;
