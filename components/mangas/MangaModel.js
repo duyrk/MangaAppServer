@@ -16,9 +16,9 @@ const schema = new Schema({
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   uploader: { type: ObjectId, ref: "team" },
-  characters: [{ type: ObjectId, ref: "character" }],
-  genres: [{ type: ObjectId, ref: "genre" }],
-  chapters: [{ type: ObjectId, ref: "chapter" }],
+  character: [{ type: ObjectId, ref: "character" }],
+  genre: [{ type: ObjectId, ref: "genre" }],
+  chapter: [{ type: ObjectId, ref: "chapter" }],
   date: { type: Number, default: Date.now() },
 });
 module.exports = mongoose.models.comic || mongoose.model("comic", schema);

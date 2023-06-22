@@ -10,7 +10,7 @@ const schema = new Schema({
     required: true,
   },
   description: { type: String, required: true },
-  members: [{ type: ObjectId, ref: "user" }],
-  mangas: [{ type: ObjectId, ref: "manga" }],
+  member: [{ type: ObjectId, ref: "user" }],
+  manga: [{ type: ObjectId, ref: "manga" }],
 });
 module.exports = mongoose.models.team || mongoose.model("team", schema);

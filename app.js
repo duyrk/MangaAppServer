@@ -13,7 +13,11 @@ var db = require("./database/connectdb");
 require("./components/genres/GenreModel");
 require("./components/mangas/MangaModel");
 require("./components/users/UserModel");
-
+require("./components/chapters/ChapterModel");
+require("./components/characters/CharacterModel");
+require("./components/pages/PageModel");
+require("./components/teams/TeamModel");
+require("./components/bins/BinModel");
 // api sesction
 var mangaAPIRouter = require("./routes/API/Manga");
 var userAPIRouter = require("./routes/API/User");

@@ -9,7 +9,7 @@ const schema = new Schema({
     trim: true,
     default: "Unknown",
   },
-  description: { type: String, trim: true },
+  description: { type: String },
   image: { type: String },
 });
 module.exports =

@@ -109,7 +109,13 @@ const searchManga = async (keyword) => {
 const pushCharacter = async (id, characterId) => {
   try {
     const manga = await mangaModel.findById(id);
-    manga.characters.push(characterId);
+    console.log(manga);
+    if (manga) {
+      manga.character.push(characterId);
+    } else {
+      throw new Error("No Manga was found");
+    }
+
     await manga.save();
     return true;
   } catch (error) {
@@ -120,7 +126,7 @@ const pushCharacter = async (id, characterId) => {
 const pushChapter = async (id, chapterId) => {
   try {
     const manga = await mangaModel.findById(id);
-    manga.chapters.push(chapterId);
+    manga.chapter.push(chapterId);
     await manga.save();
     return true;
   } catch (error) {

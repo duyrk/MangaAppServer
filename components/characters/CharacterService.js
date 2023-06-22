@@ -23,7 +23,7 @@ const getCharacterId = async (id) => {
 };
 const editCharacterById = async (id, name, description, image) => {
   try {
-    let character = characterModel.findById(id);
+    let character = await characterModel.findById(id);
     if (character) {
       character.name = name ? name : character.name;
       character.description = description ? description : character.description;

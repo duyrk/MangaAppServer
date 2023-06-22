@@ -24,7 +24,7 @@ const addChapter = async (title, chapter_number, page, date) => {
 };
 const editChapterById = async (id, title, chapter_number, page, date) => {
   try {
-    let chapter = chapterModel.findById(id);
+    let chapter = await chapterModel.findById(id);
     if (chapter) {
       chapter.title = title ? title : chapter.title;
       chapter.chapter_number = chapter_number

@@ -36,12 +36,21 @@ router.get("/:id/edit", async function (req, res, next) {
   try {
     const { id } = req.params;
     const data = await mangacontroller.getMangaById(id);
-    return res.status(200).json({
-      reponseTimeStamp: new Date(),
-      error: false,
-      statusCode: 200,
-      data: data,
-    });
+    if (data) {
+      return res.status(200).json({
+        reponseTimeStamp: new Date(),
+        error: false,
+        statusCode: 200,
+        data: data,
+      });
+    } else {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        data: data,
+      });
+    }
   } catch (error) {
     return res.status(200).json({
       reponseTimeStamp: new Date(),
@@ -77,7 +86,7 @@ router.get("/:id/edit/characters", async function (req, res, next) {
   try {
     const { id } = req.params;
     const manga = await mangacontroller.getMangaById(id);
-    const data = manga.characters;
+    const data = manga.character;
     return res.status(200).json({
       reponseTimeStamp: new Date(),
       error: false,
