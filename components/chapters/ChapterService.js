@@ -1,4 +1,12 @@
 const chapterModel = require("./ChapterModel");
+const getChapterById = async (id) => {
+  try {
+    return await chapterModel.findById(id);
+  } catch (error) {
+    console.log("Get Chapter By Id error" + error);
+  }
+  return null;
+};
 const addChapter = async (title, chapter_number, page, date) => {
   try {
     const newChapter = {
@@ -7,12 +15,12 @@ const addChapter = async (title, chapter_number, page, date) => {
       page,
       date,
     };
-    await chapterModel.create(newChapter);
-    return true;
+    const chapter = await chapterModel.create(newChapter);
+    return chapter;
   } catch (error) {
     console.log("Add Chapter Service error" + error);
   }
-  return false;
+  return {};
 };
 const editChapterById = async (id, title, chapter_number, page, date) => {
   try {
@@ -39,4 +47,9 @@ const deleteChapterById = async (id) => {
     console.log("Delete" + error);
   }
 };
-module.exports = { addChapter, editChapterById, deleteChapterById };
+module.exports = {
+  getChapterById,
+  addChapter,
+  editChapterById,
+  deleteChapterById,
+};

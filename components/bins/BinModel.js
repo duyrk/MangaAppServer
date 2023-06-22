@@ -15,10 +15,10 @@ const schema = new Schema({
   cover: { type: String },
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
-  uploader: { type: ObjectId, ref: "team" },
+  uploader: { type: String },
   characters: [{ type: ObjectId, ref: "character" }],
   genres: [{ type: ObjectId, ref: "genre" }],
   chapters: [{ type: ObjectId, ref: "chapter" }],
   date: { type: Number, default: Date.now() },
 });
-module.exports = mongoose.models.comic || mongoose.model("comic", schema);
+module.exports = mongoose.models.bin || mongoose.model("bin", schema);

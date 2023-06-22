@@ -1,4 +1,4 @@
-const mangaModel = require("./MangaModel");
+const mangaModel = require("./BinModel");
 const characterModel = require("../characters/CharacterModel");
 const chapterModel = require("../chapters/ChapterModel");
 const getAllManga = async (page, size) => {

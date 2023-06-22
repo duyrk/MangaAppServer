@@ -15,14 +15,9 @@ require("./components/mangas/MangaModel");
 require("./components/users/UserModel");
 
 // api sesction
-var chapterAPIRouter = require("./routes/API/Chapter");
-var characterAPIRouter = require("./routes/API/Character");
-var genreAPIRouter = require("./routes/API/Genre");
 var mangaAPIRouter = require("./routes/API/Manga");
 var userAPIRouter = require("./routes/API/User");
 // cpanel section
-var chapterCPanelRouter = require("./routes/CPanel/Chapter");
-var characterCPanelRouter = require("./routes/CPanel/Character");
 var genreCPanelRouter = require("./routes/CPanel/Genre");
 var mangaCPanelRouter = require("./routes/CPanel/Manga");
 var userCPanelRouter = require("./routes/CPanel/User");
@@ -42,7 +37,6 @@ app.use("/cpanel/manga", mangaCPanelRouter);
 app.use("/cpanel/genre", genreCPanelRouter);
 app.use("/cpanel/user", userCPanelRouter);
 app.use("/api/manga", mangaAPIRouter);
-app.use("/api/genre", genreAPIRouter);
 app.use("/api/user", userAPIRouter);
 ///
 

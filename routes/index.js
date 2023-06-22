@@ -9,14 +9,23 @@ router.get("/", async function (req, res, next) {});
 router.get("/feature", async function (req, res, next) {
   try {
     const data = await genreController.getAllGenre();
-    res.status(200).json({
-      reponseTimeStamp: new Date(),
-      error: false,
-      statusCode: 400,
-      data: data,
-    });
+    if (data) {
+      return res.status(200).json({
+        reponseTimeStamp: new Date(),
+        error: false,
+        statusCode: 200,
+        data: data,
+      });
+    } else {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        data: [],
+      });
+    }
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       reponseTimeStamp: new Date(),
       error: true,
       statusCode: 400,
@@ -44,5 +53,4 @@ router.post("/login", async function (req, res, next) {
     });
   }
 });
-
 module.exports = router;

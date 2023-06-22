@@ -1,3 +1,5 @@
+const binModel = require("../bins/BinModel");
+const mangaModel = require("../mangas/MangaModel");
 const teamModel = require("./TeamModel");
 
 const addTeam = async (name, members, mangas) => {
@@ -61,17 +63,15 @@ const deleteMember = async (teamId, memberId) => {
   }
   return false;
 };
-// sẽ xóa khỏi trong màn hình team
-// di chuyển qua bins và sẽ hiện ở bins
-// chỉ admin đc xóa
-// handle chuyển qua bin -- chưa làm
 const deleteManga = async (teamId, mangaId) => {
   try {
     const team = await teamModel.findById(teamId);
+    const manga = await mangaModel.findById(mangaId);
     if (team) {
       let index = team.mangas.findIndex((object) => object._id === mangaId);
       team.mangas.splice(index, 1);
       await team.save();
+      await binModel.create(manga);
       return true;
     } else {
       return false;

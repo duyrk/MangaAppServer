@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 const connect = () => {
   mongoose
     .connect(
-      "mongodb+srv://raiko:Chitoge1507@mangacluster0.izobbty.mongodb.net/",
+      "mongodb+srv://raiko:Sumireko1507@mangacluster0.izobbty.mongodb.net/MangaDB",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

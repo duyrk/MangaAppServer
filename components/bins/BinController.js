@@ -1,4 +1,4 @@
-const mangaService = require("./MangaService");
+const mangaService = require("./BinService");
 const getAllManga = async () => {
   return await mangaService.getAllManga();
 };
