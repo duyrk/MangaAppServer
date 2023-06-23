@@ -3,10 +3,17 @@ const userModel = require("./UserModel");
 const login = async (user_name, password) => {
   try {
     const user = await userModel.find({ user_name: user_name });
+    console.log("user trong db: " + user.user_name);
+    console.log("password nef" + password);
     if (user) {
+      console.log("data in db" + user);
+      console.log("user name in db " + user.user_name);
+      console.log("password in db" + user.password);
       if (password === user.password) {
+        console.log("checkkk");
         return user;
       } else {
+        console.log("checkkk1");
         return null;
       }
     }
