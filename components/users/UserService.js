@@ -1,19 +1,14 @@
 const userModel = require("./UserModel");
-
+const bcrypt = require("bcryptjs");
 const login = async (user_name, password) => {
   try {
-    const user = await userModel.find({ user_name: user_name });
-    console.log("user trong db: " + user.user_name);
-    console.log("password nef" + password);
+    const user = await userModel.findOne({ user_name: user_name });
     if (user) {
-      console.log("data in db" + user);
-      console.log("user name in db " + user.user_name);
-      console.log("password in db" + user.password);
       if (password === user.password) {
-        console.log("checkkk");
+        console.log("check1");
         return user;
       } else {
-        console.log("checkkk1");
+        console.log("check1");
         return null;
       }
     }
@@ -35,9 +30,11 @@ const signUp = async (
   try {
     const checkUser = await userModel.findOne({ user_name: user_name });
     if (!checkUser) {
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(password, salt);
       const newUser = {
         user_name,
-        password,
+        password: hash,
         email,
         nickname,
         bio,
