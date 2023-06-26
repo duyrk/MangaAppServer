@@ -9,6 +9,7 @@ const getAllManga = async (page, size) => {
       .populate("character")
       .populate("genre")
       .populate("chapter")
+      .populate("uploader")
       .skip(skip)
       .limit(size);
   } catch (error) {

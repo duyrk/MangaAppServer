@@ -13,4 +13,4 @@ const schema = new Schema({
   member: [{ type: ObjectId, ref: "user" }],
   manga: [{ type: ObjectId, ref: "manga" }],
 });
-module.exports = mongoose.models.team || mongoose.model("team", schema);
+module.exports = mongoose.models.uploader || mongoose.model("uploader", schema);

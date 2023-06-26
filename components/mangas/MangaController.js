@@ -1,6 +1,6 @@
 const mangaService = require("./MangaService");
-const getAllManga = async () => {
-  return await mangaService.getAllManga();
+const getAllManga = async (page, size) => {
+  return await mangaService.getAllManga(page, size);
 };
 const getMangaById = async (id) => {
   return await mangaService.getMangaById(id);
