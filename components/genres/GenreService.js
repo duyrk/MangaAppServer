@@ -1,4 +1,3 @@
-const UserModel = require("../users/UserModel");
 const genreModel = require("./GenreModel");
 
 const getAllGenre = async () => {
@@ -15,7 +14,7 @@ const getGenreById = async (id) => {
   } catch (error) {
     console.log("Get genre by id error" + error);
   }
-  return {};
+  return null;
 };
 const addNewGenre = async (name, description) => {
   try {
@@ -25,20 +24,20 @@ const addNewGenre = async (name, description) => {
         name,
         description,
       };
-      await UserModel.create(genre);
-      return true;
+      const data = await genreModel.create(genre);
+      return data;
     }
   } catch (error) {
     console.log("Add new genre service" + error);
   }
-  return false;
+  return null;
 };
 const updateGenre = async (id, name, description) => {
   try {
     let genre = await genreModel.findById(id);
     if (genre) {
       genre.name = name ? name : genre.name;
-      genre.description = description ? name : genre.description;
+      genre.description = description ? description : genre.description;
       await genre.save();
       return true;
     }
