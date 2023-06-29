@@ -39,12 +39,13 @@ const addManga = async (
   views,
   likes,
   uploader,
-  characters,
-  genres,
-  chapters,
+  character,
+  genre,
+  chapter,
   date
 ) => {
   try {
+    console.log("genres:" + genre);
     const manga = {
       name,
       author,
@@ -54,17 +55,17 @@ const addManga = async (
       views,
       likes,
       uploader,
-      characters,
-      genres,
-      chapters,
+      character,
+      genre,
+      chapter,
       date,
     };
-    await mangaModel.create(manga);
-    return true;
+    const data = await mangaModel.create(manga);
+    return data;
   } catch (error) {
     console.log("Add Manga Service error" + error);
   }
-  return false;
+  return null;
 };
 const updateMangaById = async (id, updates) => {
   // updates must be an object

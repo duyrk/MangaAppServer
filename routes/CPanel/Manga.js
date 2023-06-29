@@ -34,9 +34,8 @@ router.get("/", middleWare.verifyToken, async function (req, res, next) {
 // http://localhost:3000/cpanel/manga/add
 router.post("/add", middleWare.verifyToken, async function (req, res, next) {
   try {
-    const { name, author, language, status, cover, genres, uploader } =
-      req.body;
-    await mangacontroller.addManga(
+    const { name, author, language, status, cover, genre, uploader } = req.body;
+    const data = await mangacontroller.addManga(
       name,
       author,
       status,
@@ -46,13 +45,16 @@ router.post("/add", middleWare.verifyToken, async function (req, res, next) {
       0,
       uploader,
       [],
-      genres,
+      genre,
       [],
       Date.now()
     );
-    return res
-      .status(200)
-      .json({ reponseTimeStamp: new Date(), error: false, statusCode: 200 });
+    return res.status(200).json({
+      reponseTimeStamp: new Date(),
+      error: false,
+      statusCode: 200,
+      data,
+    });
   } catch (error) {
     return res
       .status(400)

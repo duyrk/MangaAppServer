@@ -14,9 +14,9 @@ const addManga = async (
   views,
   likes,
   uploader,
-  characters,
-  genres,
-  chapters,
+  character,
+  genre,
+  chapter,
   date
 ) => {
   return await mangaService.addManga(
@@ -28,9 +28,9 @@ const addManga = async (
     views,
     likes,
     uploader,
-    characters,
-    genres,
-    chapters,
+    character,
+    genre,
+    chapter,
     date
   );
 };
