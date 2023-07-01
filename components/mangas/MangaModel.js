@@ -15,7 +15,7 @@ const schema = new Schema({
   cover: { type: String },
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
-  uploader: { type: ObjectId, ref: "uploader" },
+  uploader: { type: ObjectId, ref: "user" },
   character: [{ type: ObjectId, ref: "character" }],
   genre: [{ type: ObjectId, ref: "genre" }],
   chapter: [{ type: ObjectId, ref: "chapter" }],
