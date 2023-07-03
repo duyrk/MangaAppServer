@@ -108,6 +108,7 @@ router.post(
         error: false,
         statusCode: 200,
         data: data,
+        message: "This manga has been edited successfully!",
       });
     } catch (error) {
       return res.status(400).json({
@@ -115,6 +116,7 @@ router.post(
         error: true,
         statusCode: 400,
         data: {},
+        message: "This action cannot be done, an error happend!",
       });
     }
   }
