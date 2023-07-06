@@ -1,3 +1,4 @@
+const mangaModel = require("../mangas/MangaModel");
 const chapterModel = require("./ChapterModel");
 const getChapterById = async (id) => {
   try {
@@ -40,11 +41,17 @@ const editChapterById = async (id, title, chapter_number, page, date) => {
   }
   return false;
 };
-const deleteChapterById = async (id) => {
+const deleteChapterById = async (mangaId, id) => {
   try {
+    const manga = await mangaModel.findById(mangaId);
+    if (manga) {
+      let index = manga.chapter.findIndex((object) => object._id === id);
+      manga.chapter.splice(index, 1);
+      await manga.save();
+    }
     return await chapterModel.findByIdAndDelete(id);
   } catch (error) {
-    console.log("Delete" + error);
+    console.log("Delete chapter service" + error);
   }
 };
 module.exports = {

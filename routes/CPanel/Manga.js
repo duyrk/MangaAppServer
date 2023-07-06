@@ -209,6 +209,42 @@ router.post(
     }
   }
 );
+// http://localhost:3000/cpanel/manga/:id/edit/characters/:characterId/edit
+router.post(
+  "/:id/edit/characters/:characterId/delete",
+  middleWare.verifyToken,
+  async function (req, res, next) {
+    try {
+      const { id, characterId } = req.params;
+      const response = await characterController.deleteCharacterById(
+        id,
+        characterId
+      );
+      if (response) {
+        return res.status(200).json({
+          reponseTimeStamp: new Date(),
+          error: false,
+          statusCode: 200,
+          message: "This character has been deleted succesfully!",
+        });
+      } else {
+        return res.status(400).json({
+          reponseTimeStamp: new Date(),
+          error: true,
+          statusCode: 400,
+          message: "This action cannot be done, an error happend!",
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        message: "This action cannot be done, an error happend!",
+      });
+    }
+  }
+);
 // http://localhost:3000/cpanel/manga/:id/edit/characters/add
 router.post(
   "/:id/edit/characters/add",
@@ -332,6 +368,40 @@ router.post(
           error: false,
           statusCode: 200,
           message: "This chapter has been updated successfully!",
+        });
+      } else {
+        return res.status(400).json({
+          reponseTimeStamp: new Date(),
+          error: true,
+          statusCode: 400,
+          message: "This action cannot be done, an error happend!",
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        message: "This action cannot be done, an error happend!",
+      });
+    }
+  }
+);
+
+// http://localhost:3000/cpanel/manga/:id/edit/chapter/:chapterId/delete
+router.post(
+  "/:id/edit/chapter/:chapterId/delete",
+  middleWare.verifyToken,
+  async function (req, res, next) {
+    try {
+      const { id, chapterId } = req.params;
+      const response = await chapterController.deleteChapterById(id, chapterId);
+      if (response) {
+        return res.status(200).json({
+          reponseTimeStamp: new Date(),
+          error: false,
+          statusCode: 200,
+          message: "This chapter has been deleted successfully!",
         });
       } else {
         return res.status(400).json({

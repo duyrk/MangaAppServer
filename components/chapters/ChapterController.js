@@ -14,8 +14,8 @@ const editChapterById = async (id, title, chapter_number, page, date) => {
     date
   );
 };
-const deleteChapterById = async (id) => {
-  return await chapterService.deleteChapterById(id);
+const deleteChapterById = async (mangaId, id) => {
+  return await chapterService.deleteChapterById(mangaId, id);
 };
 module.exports = {
   getChapterById,

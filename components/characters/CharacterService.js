@@ -1,5 +1,5 @@
 const characterModel = require("./CharacterModel");
-
+const mangaModel = require("../mangas/MangaModel");
 const addNewCharacter = async (name, description, image) => {
   try {
     const character = {
@@ -36,8 +36,14 @@ const editCharacterById = async (id, name, description, image) => {
   }
   return false;
 };
-const deleteCharacterById = async (id) => {
+const deleteCharacterById = async (mangaId, id) => {
   try {
+    const manga = await mangaModel.findById(mangaId);
+    if (manga) {
+      let index = manga.character.findIndex((object) => object._id === id);
+      manga.character.splice(index, 1);
+      await manga.save();
+    }
     return await characterModel.findByIdAndDelete(id);
   } catch (error) {
     console.log("Delete Character by id error: " + error);
