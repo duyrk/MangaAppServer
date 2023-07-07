@@ -45,7 +45,7 @@ const deleteChapterById = async (mangaId, id) => {
   try {
     const manga = await mangaModel.findById(mangaId);
     if (manga) {
-      let index = manga.chapter.findIndex((object) => object._id === id);
+      let index = manga.chapter.findIndex((object) => object._id == id);
       manga.chapter.splice(index, 1);
       await manga.save();
     }
