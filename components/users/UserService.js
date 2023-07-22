@@ -4,13 +4,8 @@ const login = async (user_name, password) => {
   try {
     const user = await userModel.findOne({ user_name: user_name });
     if (user) {
-      if (password === user.password) {
-        console.log("check1");
-        return user;
-      } else {
-        console.log("check1");
-        return null;
-      }
+      const checkPass = bcrypt.compareSync(password, user.password);
+      return checkPass ? user : null;
     }
   } catch (error) {
     console.log("Login service error:" + error);
@@ -24,8 +19,7 @@ const signUp = async (
   email,
   nickname,
   bio,
-  date_of_birth,
-  favourite
+  date_of_birth
 ) => {
   try {
     const checkUser = await userModel.findOne({ user_name: user_name });
@@ -39,8 +33,8 @@ const signUp = async (
         nickname,
         bio,
         date_of_birth,
-        favourite,
-        role,
+        favourite: [],
+        role: 0,
       };
       await userModel.create(newUser);
       return true;

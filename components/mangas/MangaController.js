@@ -49,6 +49,12 @@ const pushCharacter = async (id, characterId) => {
 const pushChapter = async (id, chapterId) => {
   return await mangaService.pushChapter(id, chapterId);
 };
+const updateTime = async (id, time) => {
+  return await mangaService.updateTime(id, time);
+};
+const getMangaByGenre = async (genre) => {
+  return await mangaService.getMangaByGenre(genre);
+};
 module.exports = {
   getAllManga,
   getMangaById,
@@ -58,4 +64,6 @@ module.exports = {
   searchManga,
   pushCharacter,
   pushChapter,
+  updateTime,
+  getMangaByGenre,
 };

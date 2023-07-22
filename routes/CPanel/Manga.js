@@ -103,6 +103,7 @@ router.post(
       const { id } = req.params;
       const { updates } = req.body;
       const data = await mangacontroller.updateMangaById(id, updates);
+      await mangacontroller.updateTime(id, Date.now());
       return res.status(200).json({
         reponseTimeStamp: new Date(),
         error: false,
@@ -299,6 +300,7 @@ router.post(
       );
       const response = await mangacontroller.pushChapter(id, chapter._id);
       if (response) {
+        await mangacontroller.updateTime(id, Date.now());
         return res.status(200).json({
           reponseTimeStamp: new Date(),
           error: false,
@@ -363,6 +365,7 @@ router.post(
         Date.now()
       );
       if (reponse) {
+        await mangacontroller.updateTime(id, Date.now());
         return res.status(200).json({
           reponseTimeStamp: new Date(),
           error: false,

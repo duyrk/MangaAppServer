@@ -8,8 +8,7 @@ const signUp = async (
   email,
   nickname,
   bio,
-  date_of_birth,
-  favourite
+  date_of_birth
 ) => {
   return await userService.signUp(
     user_name,
@@ -17,8 +16,7 @@ const signUp = async (
     email,
     nickname,
     bio,
-    date_of_birth,
-    favourite
+    date_of_birth
   );
 };
 const updateUserById = async (id, updates) => {

@@ -6,9 +6,9 @@ const getAllManga = async (page, size) => {
   try {
     return await mangaModel
       .find()
-      .populate("character")
+      // .populate("character")
       .populate("genre")
-      .populate("chapter")
+      // .populate("chapter")
       .populate("uploader")
       .skip(skip)
       .limit(size);
@@ -136,6 +136,38 @@ const pushChapter = async (id, chapterId) => {
   }
   return false;
 };
+const updateTime = async (id, time) => {
+  try {
+    const manga = await mangaModel.findById(id);
+    if (manga) {
+      manga.date = time;
+      await manga.save();
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("Update time error!");
+  }
+  return false;
+};
+const getMangaByGenre = async (genre) => {
+  try {
+    const manga = await mangaModel.find().populate("genre");
+    const filteredManga = [];
+    manga.forEach((e) => {
+      e.genre.forEach((o) => {
+        if (o.name == genre) {
+          filteredManga.push(e);
+        }
+      });
+    });
+    return filteredManga;
+  } catch (error) {
+    console.log("Filter manga service error!" + error);
+  }
+  return [];
+};
 module.exports = {
   getAllManga,
   getMangaById,
@@ -145,4 +177,6 @@ module.exports = {
   searchManga,
   pushCharacter,
   pushChapter,
+  updateTime,
+  getMangaByGenre,
 };
