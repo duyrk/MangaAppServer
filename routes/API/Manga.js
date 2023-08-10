@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var mangaController = require("../../components/mangas/MangaController");
+var chapterController = require("../../components/chapters/ChapterController");
 router.get("/get", async function (req, res, next) {
   try {
     const data = await mangaController.getAllManga();
@@ -91,6 +92,45 @@ router.get("/genre", async function (req, res, next) {
       message: "Error occurs! Can't do this action",
       errorMessage: error,
       data: [],
+    });
+  }
+});
+router.get("/getChapter", async function (req, res, next) {
+  try {
+    const { mangaId, chapterId } = req.query;
+    const response = await chapterController.getChapterByIdWithSideChapter(
+      mangaId,
+      chapterId
+    );
+    const { chapter, nextChapterId, previousChapterId } = response;
+    if (response) {
+      return res.status(200).json({
+        reponseTimeStamp: new Date(),
+        error: false,
+        statusCode: 200,
+        data: {
+          chapter,
+          nextChapterId: nextChapterId ?? "",
+          previousChapterId: previousChapterId ?? "",
+        },
+      });
+    } else {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        message: "Error occurs! Can't do this action",
+        data: {},
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      reponseTimeStamp: new Date(),
+      error: true,
+      statusCode: 400,
+      message: "Error occurs! Can't do this action",
+      errorMessage: error,
+      data: {},
     });
   }
 });

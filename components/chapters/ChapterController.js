@@ -17,9 +17,13 @@ const editChapterById = async (id, title, chapter_number, page, date) => {
 const deleteChapterById = async (mangaId, id) => {
   return await chapterService.deleteChapterById(mangaId, id);
 };
+const getChapterByIdWithSideChapter = async (mangaId, chapterId) => {
+  return await chapterService.getChapterByIdWithSideChapter(mangaId, chapterId);
+};
 module.exports = {
   getChapterById,
   addChapter,
   editChapterById,
   deleteChapterById,
+  getChapterByIdWithSideChapter,
 };

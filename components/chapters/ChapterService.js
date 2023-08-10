@@ -54,9 +54,24 @@ const deleteChapterById = async (mangaId, id) => {
     console.log("Delete chapter service" + error);
   }
 };
+const getChapterByIdWithSideChapter = async (mangaId, chapterId) => {
+  try {
+    const manga = await mangaModel.findById(mangaId);
+    const chapter = await chapterModel.findById(chapterId);
+    let index = manga.chapter.findIndex((chapter) => chapter == chapterId);
+    let nextChapterId = manga.chapter[index + 1];
+    let previousChapterId = manga.chapter[index - 1];
+    console.log("previous" + previousChapterId);
+    return { chapter, nextChapterId, previousChapterId };
+  } catch (error) {
+    console.log("Get chapter by id with side chapter" + error);
+  }
+  return null;
+};
 module.exports = {
   getChapterById,
   addChapter,
   editChapterById,
   deleteChapterById,
+  getChapterByIdWithSideChapter,
 };

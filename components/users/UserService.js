@@ -47,7 +47,7 @@ const signUp = async (
 };
 const updateUserById = async (id, updates) => {
   try {
-    let user = userModel.findById(id);
+    let user = await userModel.findById(id);
     Object.assign(user, updates);
     await user.save();
     return user;

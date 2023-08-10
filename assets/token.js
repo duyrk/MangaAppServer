@@ -14,7 +14,7 @@ const token = {
       { id: user._id, role: user.role },
       process.env.REFRESH_ACCESS_TOKEN,
       {
-        expiresIn: "365d",
+        expiresIn: "90d",
       }
     );
   },
