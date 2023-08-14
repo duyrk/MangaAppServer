@@ -13,6 +13,8 @@ const schema = new Schema({
   status: { type: String, trim: true },
   language: { type: String, trim: true, default: "English" },
   cover: { type: String },
+  banner: { type: String },
+  description: { type: String },
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   uploader: { type: ObjectId, ref: "user" },

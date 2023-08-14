@@ -13,6 +13,7 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  avatar: { type: String, default: "" },
   email: { type: String, trim: true, required: true },
   nickname: { type: String, trim: true, default: "" },
   bio: { type: String, trim: true, default: "Hi, i'm new let's get along!" },

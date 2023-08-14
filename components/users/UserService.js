@@ -29,6 +29,7 @@ const signUp = async (
       const newUser = {
         user_name,
         password: hash,
+        avatar: "",
         email,
         nickname,
         bio,
@@ -36,14 +37,14 @@ const signUp = async (
         favourite: [],
         role: 0,
       };
-      await userModel.create(newUser);
-      return true;
+
+      return await userModel.create(newUser);
     }
   } catch (error) {
     console.log("Sign Up Service Error:" + error);
   }
 
-  return false;
+  return null;
 };
 const updateUserById = async (id, updates) => {
   try {
@@ -56,4 +57,43 @@ const updateUserById = async (id, updates) => {
   }
   return [];
 };
-module.exports = { login, signUp, updateUserById };
+const getUserById = async (id) => {
+  try {
+    const user = await userModel.findById(id);
+    return user;
+  } catch (error) {
+    console.log("Get user by id error" + error);
+  }
+  return null;
+};
+const addToFavorites = async (mangaId, userId) => {
+  try {
+    const user = await userModel.findById(userId);
+    user.favourite.push(mangaId);
+    await user.save();
+    return user.favourite;
+  } catch (error) {
+    console.log("Add to favorites service error: " + error);
+  }
+  return [];
+};
+const removeFromFavorites = async (mangaId, userId) => {
+  try {
+    const user = await userModel.findById(userId);
+    let index = user.favourite.findIndex((manga) => manga._id == mangaId);
+    user.favourite.splice(index, 1);
+    await user.save();
+    return user.favourite;
+  } catch (error) {
+    console.log("removeFromFavorites" + error);
+  }
+  return [];
+};
+module.exports = {
+  login,
+  signUp,
+  updateUserById,
+  getUserById,
+  addToFavorites,
+  removeFromFavorites,
+};

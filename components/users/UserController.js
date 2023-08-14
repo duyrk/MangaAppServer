@@ -22,4 +22,20 @@ const signUp = async (
 const updateUserById = async (id, updates) => {
   return await userService.updateUserById(id, updates);
 };
-module.exports = { login, signUp, updateUserById };
+const getUserById = async (id) => {
+  return await userService.getUserById(id);
+};
+const addToFavorites = async (mangaId, userId) => {
+  return await userService.addToFavorites(mangaId, userId);
+};
+const removeFromFavorites = async (mangaId, userId) => {
+  return await userService.removeFromFavorites(mangaId, userId);
+};
+module.exports = {
+  login,
+  signUp,
+  updateUserById,
+  getUserById,
+  addToFavorites,
+  removeFromFavorites,
+};

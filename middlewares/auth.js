@@ -10,7 +10,7 @@ const middleWare = {
       token = req.headers.authorization.split(" ")[1];
     if (token) {
       jwt.verify(token, process.env.ACCESS_TOKEN, (err, data) => {
-        if (err) return res.status(403).json("Token is not valid");
+        if (err) return res.status(401).json("Token is not valid");
         console.log("data: " + data);
         req.user = data;
         next();

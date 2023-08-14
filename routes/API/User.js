@@ -52,6 +52,7 @@ router.post("/register", async function (req, res, next) {
         status: 200,
         error: false,
         message: "Sign Up Successfully!",
+        data: response,
       });
     } else {
       return res.status(400).json({
@@ -59,6 +60,7 @@ router.post("/register", async function (req, res, next) {
         status: 400,
         error: true,
         message: "Error occurs! Can't sign up",
+        data: {},
       });
     }
   } catch (error) {
@@ -66,45 +68,42 @@ router.post("/register", async function (req, res, next) {
       responseTimeStamp: new Date(),
       status: 400,
       error: true,
-      message: "Error occurs! Can't sign up",
+      message: "System error occurs! Can't sign up",
       errorMessage: error,
+      data: {},
     });
   }
 });
-router.post(
-  "/:id/edit",
-  middleWare.verifyToken,
-  async function (req, res, next) {
-    try {
-      const { id } = req.params;
-      const { updates } = req.body;
-      const user = await userController.updateUserById(id, updates);
-      if (user) {
-        return res.status(200).json({
-          responseTimeStamp: new Date(),
-          status: 200,
-          error: false,
-          message: "You account updated Successfully!",
-        });
-      } else {
-        return res.status(400).json({
-          responseTimeStamp: new Date(),
-          status: 400,
-          error: true,
-          message: "Error occurs! Can't update your account",
-        });
-      }
-    } catch (error) {
+router.post("/:id/edit", async function (req, res, next) {
+  try {
+    const { id } = req.params;
+    const { updates } = req.body;
+    const user = await userController.updateUserById(id, updates);
+    if (user) {
+      return res.status(200).json({
+        responseTimeStamp: new Date(),
+        status: 200,
+        error: false,
+        message: "You account updated Successfully!",
+      });
+    } else {
       return res.status(400).json({
         responseTimeStamp: new Date(),
         status: 400,
         error: true,
         message: "Error occurs! Can't update your account",
-        errorMessage: error,
       });
     }
+  } catch (error) {
+    return res.status(400).json({
+      responseTimeStamp: new Date(),
+      status: 400,
+      error: true,
+      message: "Error occurs! Can't update your account",
+      errorMessage: error,
+    });
   }
-);
+});
 router.post("/refreshToken", async function (req, res, next) {
   try {
     const { refreshToken } = req.body;
@@ -118,8 +117,8 @@ router.post("/refreshToken", async function (req, res, next) {
         status: 200,
         error: false,
         message: "Refresh token successfully",
-        accessToken: token.accessToken(data),
-        refreshToken: token.refreshToken(data),
+        access_token: token.accessToken(data),
+        refresh_token: token.refreshToken(data),
       });
     });
   } catch (error) {
@@ -132,4 +131,113 @@ router.post("/refreshToken", async function (req, res, next) {
     });
   }
 });
+router.get("/:id", async function (req, res, next) {
+  try {
+    const { id } = req.params;
+    const user = await userController.getUserById(id);
+    if (user) {
+      return res.status(200).json({
+        responseTimeStamp: new Date(),
+        status: 200,
+        error: false,
+        message: "Get user successfully",
+        data: user,
+      });
+    } else {
+      return res.status(400).json({
+        responseTimeStamp: new Date(),
+        status: 400,
+        error: true,
+        message: "Error occurs! User does not exist",
+        data: {},
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      responseTimeStamp: new Date(),
+      status: 400,
+      error: true,
+      message: "System error occurs!",
+      errorMessage: error.message,
+      data: {},
+    });
+  }
+});
+router.post(
+  "/:userId/favourite",
+  middleWare.verifyToken,
+  async function (req, res, next) {
+    try {
+      const { userId } = req.params;
+      const { mangaId } = req.body;
+      const response = await userController.addToFavorites(mangaId, userId);
+      if (response) {
+        return res.status(200).json({
+          responseTimeStamp: new Date(),
+          status: 200,
+          error: false,
+          message: "Add manga to favourite successfully",
+          data: response,
+        });
+      } else {
+        return res.status(400).json({
+          responseTimeStamp: new Date(),
+          status: 400,
+          error: true,
+          message: "Error occurs! Add manga to favourite failed",
+          data: [],
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        responseTimeStamp: new Date(),
+        status: 400,
+        error: true,
+        message: "Error occurs! Add manga to favourite failed",
+        errorMessage: error.message,
+        data: [],
+      });
+    }
+  }
+);
+router.post(
+  "/:userId/favourite/delete",
+  middleWare.verifyToken,
+  async function (req, res, next) {
+    try {
+      const { userId } = req.params;
+      const { mangaId } = req.body;
+      const response = await userController.removeFromFavorites(
+        mangaId,
+        userId
+      );
+      if (response) {
+        return res.status(200).json({
+          responseTimeStamp: new Date(),
+          status: 200,
+          error: false,
+          message: "Add manga to favourite successfully",
+          data: response,
+        });
+      } else {
+        return res.status(400).json({
+          responseTimeStamp: new Date(),
+          status: 400,
+          error: true,
+          message: "Error occurs! Add manga to favourite failed",
+          data: [],
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        responseTimeStamp: new Date(),
+        status: 400,
+        error: true,
+        message: "Error occurs! Add manga to favourite failed",
+        errorMessage: error.message,
+        data: [],
+      });
+    }
+  }
+);
 module.exports = router;

@@ -10,8 +10,10 @@ const getAllManga = async (page, size) => {
       .populate("genre")
       // .populate("chapter")
       .populate("uploader")
+      .populate("chapter")
       .skip(skip)
-      .limit(size);
+      .limit(size)
+      .sort({ date: -1 });
   } catch (error) {
     console.log("Get all Manga Service Error " + error);
   }
@@ -36,6 +38,8 @@ const addManga = async (
   status,
   language,
   cover,
+  banner,
+  description,
   views,
   likes,
   uploader,
@@ -52,6 +56,8 @@ const addManga = async (
       status,
       language,
       cover,
+      banner,
+      description,
       views,
       likes,
       uploader,
@@ -168,6 +174,7 @@ const getMangaByGenre = async (genre) => {
   }
   return [];
 };
+
 module.exports = {
   getAllManga,
   getMangaById,
