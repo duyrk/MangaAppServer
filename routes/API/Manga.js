@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var mangaController = require("../../components/mangas/MangaController");
 var chapterController = require("../../components/chapters/ChapterController");
+var genreController = require("../../components/genres/GenreController");
 const { middleWare } = require("../../middlewares/auth");
 router.get("/get", middleWare.verifyToken, async function (req, res, next) {
   try {
@@ -135,6 +136,37 @@ router.get(
         message: "Error occurs! Can't do this action",
         errorMessage: error,
         data: {},
+      });
+    }
+  }
+);
+router.get(
+  "/genre/getAll",
+  middleWare.verifyToken,
+  async function (req, res, next) {
+    try {
+      const data = await genreController.getAllGenre();
+      if (data) {
+        return res.status(200).json({
+          reponseTimeStamp: new Date(),
+          error: false,
+          statusCode: 200,
+          data: data,
+        });
+      } else {
+        return res.status(400).json({
+          reponseTimeStamp: new Date(),
+          error: true,
+          statusCode: 400,
+          data: [],
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        reponseTimeStamp: new Date(),
+        error: true,
+        statusCode: 400,
+        data: [],
       });
     }
   }

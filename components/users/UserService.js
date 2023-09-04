@@ -2,7 +2,9 @@ const userModel = require("./UserModel");
 const bcrypt = require("bcryptjs");
 const login = async (user_name, password) => {
   try {
-    const user = await userModel.findOne({ user_name: user_name });
+    const user = await userModel
+      .findOne({ user_name: user_name })
+      .populate("favourite");
     if (user) {
       const checkPass = bcrypt.compareSync(password, user.password);
       return checkPass ? user : null;
@@ -59,7 +61,7 @@ const updateUserById = async (id, updates) => {
 };
 const getUserById = async (id) => {
   try {
-    const user = await userModel.findById(id);
+    const user = await userModel.findById(id).populate("favourite");
     return user;
   } catch (error) {
     console.log("Get user by id error" + error);
@@ -68,26 +70,29 @@ const getUserById = async (id) => {
 };
 const addToFavorites = async (mangaId, userId) => {
   try {
-    const user = await userModel.findById(userId);
+    const user = await userModel.findById(userId).populate("favourite");
     user.favourite.push(mangaId);
     await user.save();
-    return user.favourite;
+    const user1 = await userModel.findById(userId).populate("favourite");
+    return user1;
   } catch (error) {
     console.log("Add to favorites service error: " + error);
   }
-  return [];
+  return null;
 };
 const removeFromFavorites = async (mangaId, userId) => {
   try {
-    const user = await userModel.findById(userId);
+    const user = await userModel.findById(userId).populate("favourite");
     let index = user.favourite.findIndex((manga) => manga._id == mangaId);
+    if (index == -1) return null;
     user.favourite.splice(index, 1);
     await user.save();
-    return user.favourite;
+    const user1 = await userModel.findById(userId).populate("favourite");
+    return user1;
   } catch (error) {
     console.log("removeFromFavorites" + error);
   }
-  return [];
+  return null;
 };
 module.exports = {
   login,

@@ -104,11 +104,7 @@ const searchManga = async (keyword) => {
     let query = {
       name: { $regex: keyword, $options: "i" },
     };
-    let manga = await mangaModel
-      .find(query)
-      .populate("character")
-      .populate("genre")
-      .populate("chapter");
+    let manga = await mangaModel.find(query).populate("genre");
     return manga;
   } catch (error) {
     console.log("Search Manga Service error " + error);
@@ -159,11 +155,12 @@ const updateTime = async (id, time) => {
 };
 const getMangaByGenre = async (genre) => {
   try {
-    const manga = await mangaModel.find().populate("genre");
+    const manga = await mangaModel.find().populate("genre").populate("chapter");
+    if (genre == "") return manga;
     const filteredManga = [];
     manga.forEach((e) => {
       e.genre.forEach((o) => {
-        if (o.name == genre) {
+        if (o.name.toLowerCase() == genre.toLowerCase()) {
           filteredManga.push(e);
         }
       });

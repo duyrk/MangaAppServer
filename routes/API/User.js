@@ -131,7 +131,7 @@ router.post("/refreshToken", async function (req, res, next) {
     });
   }
 });
-router.get("/:id", async function (req, res, next) {
+router.get("/:id", middleWare.verifyToken, async function (req, res, next) {
   try {
     const { id } = req.params;
     const user = await userController.getUserById(id);
